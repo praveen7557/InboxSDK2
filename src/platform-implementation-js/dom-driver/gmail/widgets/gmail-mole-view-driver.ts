@@ -258,37 +258,33 @@ class GmailMoleViewDriver {
   }
 
   #doShow = (moleParent: HTMLElement) => {
-    const insertBefore = moleParent.lastElementChild;
-
-    if (insertBefore instanceof HTMLElement) {
-      moleParent.insertBefore(this.#element, insertBefore);
-    } else {
-      this.#driver.logger.error(
-        new Error(
-          'Mole show invariant violated. `lastMole` is not an HTMLElement',
-        ),
-      );
-      return;
-    }
-
-    const dw = moleParent.closest('div.dw');
-
-    if (dw) {
-      dw.classList.add('inboxsdk__moles_in_use', styles.inboxsdkMolesInUse);
-    }
+    // const insertBefore = moleParent.lastElementChild;
+    // if (insertBefore instanceof HTMLElement) {
+    //   moleParent.insertBefore(this.#element, insertBefore);
+    // } else {
+    //   this.#driver.logger.error(
+    //     new Error(
+    //       'Mole show invariant violated. `lastMole` is not an HTMLElement',
+    //     ),
+    //   );
+    //   return;;
+    // }
+    // const dw = moleParent.closest('div.dw');
+    // if (dw) {
+    //   dw.classList.add('inboxsdk__moles_in_use', styles.inboxsdkMolesInUse);
+    // }
   };
 
   show() {
     const moleParent = GmailMoleViewDriver.#moleParent;
 
-    if (moleParent) {
-      this.#doShow(moleParent);
-      return;
-    }
+    // if (moleParent) {
+    //   this.#doShow(moleParent);
+    //   return;
+    // }
 
-    const moleParentReadyEvent = GmailMoleViewDriver.#moleParentReadyEvent
-      .takeUntilBy(this.#stopper)
-      .onValue(this.#doShow);
+    const moleParentReadyEvent =
+      GmailMoleViewDriver.#moleParentReadyEvent.takeUntilBy(this.#stopper);
 
     // The mole parent element is lazily loaded by
     // Gmail only once the user has used a compose view or a thread view.
